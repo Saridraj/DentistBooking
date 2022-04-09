@@ -6,6 +6,7 @@ const connectDB = require('./config/db');
 //Route files
 const auth = require('./routes/auth');
 const dentists = require('./routes/dentists');
+const booking = require('./routes/booking');
 
 //Load env vars
 dotenv.config({path:'./config/config.env'});
@@ -24,8 +25,9 @@ app.use(cookieParser());
 //Mount routers
 app.use('/api/v1/dentists',dentists);
 app.use('/api/v1/auth', auth);
+app.use('/api/v1/booking',booking);
 
-const PORT=process.env.PORT || 5000;
+const PORT=process.env.PORT || 4000;
 const server = app.listen(PORT, console.log('Server runnig in', process.env.NODE_ENV, 'mode on port', PORT));
 
 //Handle unhandle promise rejection
