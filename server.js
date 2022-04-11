@@ -25,7 +25,7 @@ app.use(cookieParser());
 //Mount routers
 app.use('/api/v1/dentists',dentists);
 app.use('/api/v1/auth', auth);
-app.use('/api/v1/booking',booking);
+app.use('/api/v1/bookings',booking);
 
 const PORT=process.env.PORT || 4000;
 const server = app.listen(PORT, console.log('Server runnig in', process.env.NODE_ENV, 'mode on port', PORT));

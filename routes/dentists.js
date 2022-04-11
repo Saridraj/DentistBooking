@@ -5,7 +5,7 @@ const bookingRouter = require('./booking');
 const router = express.Router();
 
 router.route('/').get(getDentists);
-router.use('/:dentistId/booking/',bookingRouter);
+router.use('/:dentistId/bookings/',bookingRouter);
 
 
 module.exports=router;

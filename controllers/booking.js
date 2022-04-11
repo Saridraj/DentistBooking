@@ -1,6 +1,9 @@
 const Booking = require('../models/Booking');
 const Dentist = require('../models/Dentist');
 
+//@desc     Get all bookings
+//@route    GET /api/v1/bookings
+//@access   Public
 exports.getBookings = async (req,res,next)=>{
     let query;
 
@@ -29,10 +32,13 @@ exports.getBookings = async (req,res,next)=>{
     }
 };
 
+//@desc     Get single booking
+//@route    GET /api/v1/bookings/:id
+//@access   Public
 exports.getBooking = async (req,res,next) => {
     try {
         const booking = await Booking.findById(req.params.id).populate({
-            path:'booking',
+            path:'dentist',
             select: 'name'
         });
 
@@ -50,6 +56,9 @@ exports.getBooking = async (req,res,next) => {
     }
 };
 
+//@desc     Add single booking
+//@route    POST /api/v1/bookings/:id
+//@access   Private
 exports.addBooking = async (req,res,next) => {
     try {
         req.body.dentist=req.params.dentistId;
@@ -82,10 +91,12 @@ exports.addBooking = async (req,res,next) => {
     }
 };
 
-
+//@desc     Update booking
+//@route    PUT /api/v1/bookings/:id
+//@access   Private
 exports.updateBooking = async (req,res,next) =>{
     try {
-        let abooking = await Booking.findById(req.params.id);
+        let booking = await Booking.findById(req.params.id);
 
         if(!booking){
             return res.status(404).json({success:false,message:`No booking with the id of ${req.params.id}`});
@@ -112,6 +123,9 @@ exports.updateBooking = async (req,res,next) =>{
     }
 };
 
+//@desc     Delete booking
+//@route    DELETE /api/v1/bookings/:id
+//@access   Private
 exports.deleteBooking = async (req,res,next) => {
     try{
         const booking = await Booking.findById(req.params.id);
@@ -134,6 +148,5 @@ exports.deleteBooking = async (req,res,next) => {
     } catch (error) {
         console.log(error);
         return res.status(500).json({success:false,message:"Cannot delete Booking"});
-
     }
-};
+}
