@@ -16,7 +16,7 @@ exports.getBookings = async (req,res,next)=>{
         query = Booking.find().populate({
             path: 'dentist',
             select: 'name',
-        })
+        });
     }
     try {
         const bookings = await query;
@@ -44,6 +44,10 @@ exports.getBooking = async (req,res,next) => {
 
         if(!booking){
             return res.status(404).json({success:false,message:`No booking with the id of ${req.params.id}`});
+        }
+
+        if(booking.user.toString()!== req.user.id && req.user.role !== 'admin'){
+            return res.status(401).json({success:false,message:`User ${req.user.id} is not authorized to update this booking`})
         }
 
         res.status(200).json({
