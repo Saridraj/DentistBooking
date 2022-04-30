@@ -15,10 +15,6 @@ const DentistSchema = new mongoose.Schema({
     areaExpertise:{
         type: String,
         required: [true,'Please add an area expertise']
-    },
-    province:{
-        type: String,
-        required: [true,'Please add a province']
     }
 },
 {
